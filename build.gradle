@@ -1,0 +1,50 @@
+plugins {
+    id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("io.micronaut.application") version "1.5.4"
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+}
+
+
+version = "0.1"
+group = "io.igx.fx"
+
+repositories {
+    mavenCentral()
+}
+
+micronaut {
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("io.igx.fx.*")
+    }
+}
+
+dependencies {
+    implementation("io.micronaut.rxjava3:micronaut-rxjava3")
+    implementation("io.micronaut.rxjava3:micronaut-rxjava3-http-client")
+    implementation("io.micronaut:micronaut-runtime")
+    runtimeOnly("ch.qos.logback:logback-classic")
+
+    //javafx stuff
+    implementation 'com.gluonhq:ignite-micronaut:1.2.0'
+    implementation 'org.openjfx:javafx-controls:17.0.1'
+    implementation 'org.openjfx:javafx-fxml:17.0.1'
+
+    compileOnly("org.graalvm.nativeimage:svm")
+}
+
+
+application {
+    mainClass.set("com.gluonhq.ignite.micronaut.FXApplication")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("11")
+    targetCompatibility = JavaVersion.toVersion("11")
+}
+
+javafx {
+    version = "17"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
