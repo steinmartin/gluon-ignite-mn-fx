@@ -10,7 +10,7 @@ Inside IDE follow the docs on setting up JavaFX on [non-modular IDE](https://ope
 
 ## Screenshots
 
-[!Start screen](assets/start.png)
-[!Capture screen](assets/call.png)
+![Start screen](assets/start.png)
+![Capture screen](assets/call.png)
 
 
