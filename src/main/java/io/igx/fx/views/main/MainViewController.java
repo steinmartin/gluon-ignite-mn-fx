@@ -1,64 +1,77 @@
 package io.igx.fx.views.main;
 
-import com.gluonhq.ignite.micronaut.OnFXThread;
 import io.igx.fx.model.DogResponse;
-import io.micronaut.http.HttpRequest;
-import io.micronaut.http.client.HttpClient;
-import io.micronaut.http.client.RxHttpClient;
-import io.micronaut.http.client.annotation.Client;
-import io.reactivex.Flowable;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import org.reactivestreams.Publisher;
+import org.reactivestreams.Subscription;
+import reactor.core.publisher.BaseSubscriber;
+import reactor.core.publisher.SignalType;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+
 @Singleton
 public class MainViewController {
-
-    @Client("https://dog.ceo/api")
-    @Inject
-    RxHttpClient httpClient;
-
 
     @FXML
     StackPane imageFrame;
 
+    @Inject
+    private DogsHttpClient dogsHttpClient;
+
     public void call(ActionEvent event) {
-        httpClient.retrieve(HttpRequest.GET("/breeds/image/random"), DogResponse.class)
-                .subscribe(dogResponse -> updateImageView(dogResponse.getMessage()));
+        Publisher<DogResponse> dogHttpResponse = dogsHttpClient.getRandomDog();
+        dogHttpResponse.subscribe(new MainViewSubscriber<DogResponse>());
     }
 
-
-    void updateImageView(String href){
-        if(this.imageFrame != null) {
-            if(!Platform.isFxApplicationThread()){
-                Platform.runLater(() -> {
-                    Image image = new Image(href);
-                    double nativeWidth = image.getWidth();
-                    double nativeHeight = image.getHeight();
-                    ImageView imageView = new ImageView(image);
-                    imageView.setPreserveRatio(true);
-                    imageView.maxWidth(500);
-                    imageView.maxHeight(375);
-                    if(nativeHeight > 375) {
-                        imageView.setFitHeight(375);
-                    }
-                    if(nativeWidth > 500){
-                        imageView.setFitWidth(500);
-                    }
-                    imageView.setPreserveRatio(true);
-                    imageView.setSmooth(true);
-                    imageFrame.getChildren().clear();
-                    imageFrame.getChildren().add(imageView);
-                    StackPane.setAlignment(imageView, Pos.CENTER);
-                });
+    private void updateImageView(String href) {
+        if (this.imageFrame != null) {
+            Image image = new Image(href);
+            double nativeWidth = image.getWidth();
+            double nativeHeight = image.getHeight();
+            ImageView imageView = new ImageView(image);
+            imageView.setPreserveRatio(true);
+            imageView.maxWidth(500);
+            imageView.maxHeight(375);
+            if (nativeHeight > 375) {
+                imageView.setFitHeight(375);
             }
+            if (nativeWidth > 500) {
+                imageView.setFitWidth(500);
+            }
+            imageView.setPreserveRatio(true);
+            imageView.setSmooth(true);
+            imageFrame.getChildren().clear();
+            imageFrame.getChildren().add(imageView);
+        }
+    }
+
+    private class MainViewSubscriber<T> extends BaseSubscriber<T> {
+
+        @Override
+        protected void hookOnSubscribe(Subscription subscription) {
+            requestUnbounded();
+        }
+
+        @Override
+        protected void hookOnError(Throwable throwable) {
+            System.err.println("Connection did not work well: " + throwable);
+        }
+
+        @Override
+        protected void hookFinally(SignalType type) {
+        }
+
+        @Override
+        protected void hookOnNext(T value) {
+            String href = ((DogResponse) value).getMessage();
+            System.out.println("HREF of Rest call: " + href);
+            Platform.runLater(() -> updateImageView(href));
         }
     }
 }

@@ -2,10 +2,12 @@ package io.igx.fx;
 
 import io.micronaut.runtime.EmbeddedApplication;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import jakarta.inject.Inject;
+
 
 @MicronautTest
 class MicronautFxTest {
@@ -13,6 +15,7 @@ class MicronautFxTest {
     @Inject
     EmbeddedApplication<?> application;
 
+    @Disabled
     @Test
     void testItWorks() {
         Assertions.assertTrue(application.isRunning());

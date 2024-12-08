@@ -1,7 +1,8 @@
 plugins {
-    id("com.github.johnrengelman.shadow") version "7.0.0"
-    id("io.micronaut.application") version "1.5.4"
-    id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'io.micronaut.application' version '4.4.4'
+    id 'io.micronaut.aot' version '4.4.4'
+    id 'org.openjfx.javafxplugin' version '0.0.14'
 }
 
 
@@ -18,33 +19,50 @@ micronaut {
         incremental(true)
         annotations("io.igx.fx.*")
     }
+//    aot {
+    // Please review carefully the optimizations enabled below
+    // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
+
+//        optimizeServiceLoading = false
+//        convertYamlToJava = false
+//        precomputeOperations = true
+//        cacheEnvironment = true
+//        optimizeClassLoading = true
+//        deduceEnvironment = true
+//        optimizeNetty = true
+//        replaceLogbackXml = true
+//    }
 }
 
 dependencies {
-    implementation("io.micronaut.rxjava3:micronaut-rxjava3")
-    implementation("io.micronaut.rxjava3:micronaut-rxjava3-http-client")
-    implementation("io.micronaut:micronaut-runtime")
     runtimeOnly("ch.qos.logback:logback-classic")
 
-    //javafx stuff
-    implementation 'com.gluonhq:ignite-micronaut:1.2.0'
-    implementation 'org.openjfx:javafx-controls:17.0.1'
-    implementation 'org.openjfx:javafx-fxml:17.0.1'
+    implementation 'io.micronaut:micronaut-http-client-jdk'
+//    implementation 'io.micronaut:micronaut-http-client'
+    runtimeOnly 'io.micronaut:micronaut-jackson-databind:4.7.6'
+    compileOnly 'io.micronaut.reactor:micronaut-reactor:3.6.0'
+
+    //implementation 'com.gluonhq:ignite-micronaut:1.2.2'
+    compileOnly 'jakarta.validation:jakarta.validation-api:3.1.0'
+    runtimeOnly 'jakarta.inject:jakarta.inject-api:2.0.1'
 
     compileOnly("org.graalvm.nativeimage:svm")
-}
 
+    testImplementation 'io.micronaut:micronaut-http-client-jdk'
+    //testImplementation 'io.micronaut:micronaut-http-client'
+}
 
 application {
     mainClass.set("com.gluonhq.ignite.micronaut.FXApplication")
 }
 java {
-    sourceCompatibility = JavaVersion.toVersion("11")
-    targetCompatibility = JavaVersion.toVersion("11")
+    sourceCompatibility = JavaVersion.toVersion("21")
+    targetCompatibility = JavaVersion.toVersion("21")
 }
 
 javafx {
-    version = "17"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+//    version = "17.0.13"
+    version = "21.0.5"
+    platform = 'linux'
+    modules = ['javafx.controls', 'javafx.fxml']
 }
-
