@@ -1,7 +1,7 @@
 plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1'
-    id 'io.micronaut.application' version '4.4.4'
-    id 'io.micronaut.aot' version '4.4.4'
+    id 'io.micronaut.application' version '4.5.3'
+    id 'io.micronaut.aot' version '4.5.2'
     id 'org.openjfx.javafxplugin' version '0.0.14'
 }
 
@@ -62,7 +62,7 @@ java {
 
 javafx {
 //    version = "17.0.13"
-    version = "21.0.5"
+    version = "21.0.7"
     platform = 'linux'
-    modules = ['javafx.controls', 'javafx.fxml']
+    modules = ['javafx.controls', 'javafx.base', 'javafx.graphics', 'javafx.fxml']
 }
