@@ -3,7 +3,7 @@ package io.igx.fx.model;
 import io.micronaut.core.annotation.Introspected;
 
 @Introspected
-public class DogResponse {
+public class DogMessage {
 
     private String message;
     private String status;
