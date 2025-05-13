@@ -33,11 +33,8 @@ public class DogTabViewController implements Initializable {
     @FXML
     StackPane stackPaneImageFrame;
 
-
     @Inject
     private DogsHttpClient dogsHttpClient;
-
-
 
 
     public void call(ActionEvent event) {
