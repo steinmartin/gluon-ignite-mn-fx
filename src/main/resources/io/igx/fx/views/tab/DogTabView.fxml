@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<Tab text="Untitled Tab" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.igx.fx.views.tab.DogTabViewController">>
-  <content>
-<!--    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">-->
-<!--         <children>-->
-<!--            <Label fx:id="labelTest"  text="TAB" />-->
-<!--         </children></AnchorPane>-->
-                  <Label fx:id="labelTest"  text="TAB" />
-  </content>
-</Tab>
+<VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.igx.fx.views.tab.DogTabViewController">
+   <children>
+      <StackPane fx:id="stackPaneImageFrame" VBox.vgrow="ALWAYS" />
+      <Button mnemonicParsing="false" text="Get Dog" onAction="#call"/>
+   </children>
+</VBox>

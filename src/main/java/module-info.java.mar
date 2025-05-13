@@ -1,0 +1,24 @@
+module dogsclient.main {
+    requires io.micronaut.micronaut_aop;
+    requires io.micronaut.micronaut_context;
+    requires io.micronaut.micronaut_core;
+    requires io.micronaut.micronaut_core_reactive;
+    requires io.micronaut.micronaut_http;
+    requires io.micronaut.micronaut_http_client_core;
+    requires io.micronaut.micronaut_inject;
+    requires jakarta.annotation;
+    requires jakarta.inject;
+    requires jakarta.validation;
+    requires javafx.base;
+    requires javafx.controls;
+    requires javafx.fxml;
+    requires javafx.graphics;
+    requires org.reactivestreams;
+    requires org.slf4j;
+
+    opens io.igx.fx.views.main to javafx.fxml;
+    opens io.igx.fx.views.tab to javafx.fxml;
+
+    exports com.gluonhq.ignite.micronaut;
+
+}

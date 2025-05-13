@@ -1,13 +1,21 @@
 package io.igx.fx.views.main;
 
+import com.gluonhq.ignite.micronaut.FXMLRootProvider;
 import com.gluonhq.ignite.micronaut.OnFXThread;
 import io.igx.fx.model.DogMessage;
+import io.igx.fx.views.tab.DogTabView;
+import io.igx.fx.views.tab.DogTabViewController;
+import io.micronaut.context.ApplicationContext;
+import io.micronaut.context.BeanContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,42 +29,33 @@ import java.io.IOException;
 
 
 @Singleton
-//@Prototype
 public class MainViewController {
 
     @FXML
-    TabPane imageFrameTabPane;
+    TabPane tabPaneImageFrame;
 
     @Inject
-    private DogsHttpClient dogsHttpClient;
+    private ApplicationContext ctx;
 
-//    private MainViewSubscriber mainViewSubscriber = null;
-    private Publisher<DogMessage> dogHttpResponse = null;
+    private static int numberOfTabs = 0;
+
 
     @OnFXThread
     public void call(ActionEvent event) {
 
-//        if (dogHttpResponse == null) {
-//            System.out.println(" dogHttpResponse initialized");
-//            dogHttpResponse = dogsHttpClient.getRandomDog();
-//        }
-//        MainViewSubscriber mainViewSubscriber = new MainViewSubscriber<DogMessage>();
-//
-//        System.out.println("mainViewSubscriber: " + mainViewSubscriber);
-//        dogHttpResponse.subscribe(mainViewSubscriber);
+        DogTabView dogTabView = ctx.getBean(DogTabView.class);
+
+        Tab tab = new Tab(Integer.toString(++numberOfTabs));
+        tab.setContent(dogTabView.getRoot());
+        tab.setOnClosed(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+                dogTabView.destroy();
+            }
+        });
 
 
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/tab/DogTabView.fxml"));
-        try {
-            fxmlLoader.load();
-        } catch( IOException exception) {
-            throw new RuntimeException( exception);
-        }
-
-
-        imageFrameTabPane.getTabs().add(fxmlLoader.getRoot());
-
-
+        tabPaneImageFrame.getTabs().add(tab);
+        tabPaneImageFrame.getSelectionModel().select(tab);
     }
 }

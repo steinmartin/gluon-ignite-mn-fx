@@ -19,23 +19,23 @@ micronaut {
         incremental(true)
         annotations("io.igx.fx.*")
     }
-//    aot {
-    // Please review carefully the optimizations enabled below
-    // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
+    aot {
+//     Please review carefully the optimizations enabled below
+//     Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
 
-//        optimizeServiceLoading = false
-//        convertYamlToJava = false
-//        precomputeOperations = true
-//        cacheEnvironment = true
-//        optimizeClassLoading = true
-//        deduceEnvironment = true
-//        optimizeNetty = true
-//        replaceLogbackXml = true
-//    }
+        optimizeServiceLoading = false
+        convertYamlToJava = false
+        precomputeOperations = true
+        cacheEnvironment = true
+        optimizeClassLoading = true
+        deduceEnvironment = true
+        optimizeNetty = true
+        replaceLogbackXml = true
+    }
 }
 
 dependencies {
-    runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly 'ch.qos.logback:logback-classic'
 
     implementation 'io.micronaut:micronaut-http-client-jdk'
 //    implementation 'io.micronaut:micronaut-http-client'
@@ -43,26 +43,30 @@ dependencies {
     compileOnly 'io.micronaut.reactor:micronaut-reactor:3.6.0'
 
     //implementation 'com.gluonhq:ignite-micronaut:1.2.2'
-    compileOnly 'jakarta.validation:jakarta.validation-api:3.1.0'
-    runtimeOnly 'jakarta.inject:jakarta.inject-api:2.0.1'
+    implementation 'jakarta.validation:jakarta.validation-api:3.1.0'
+    implementation 'jakarta.inject:jakarta.inject-api:2.0.1'
 
-    compileOnly("org.graalvm.nativeimage:svm")
+    compileOnly 'org.graalvm.nativeimage:svm'
 
     testImplementation 'io.micronaut:micronaut-http-client-jdk'
     //testImplementation 'io.micronaut:micronaut-http-client'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.12.2'
 }
 
 application {
-    mainClass.set("com.gluonhq.ignite.micronaut.FXApplication")
+//    mainModule = 'dogsclient.main'
+    mainClass = 'com.gluonhq.ignite.micronaut.FXApplication'
 }
+
+
 java {
     sourceCompatibility = JavaVersion.toVersion("21")
     targetCompatibility = JavaVersion.toVersion("21")
 }
 
 javafx {
-//    version = "17.0.13"
-    version = "21.0.7"
+    version '21.0.7'
     platform = 'linux'
     modules = ['javafx.controls', 'javafx.base', 'javafx.graphics', 'javafx.fxml']
 }
+

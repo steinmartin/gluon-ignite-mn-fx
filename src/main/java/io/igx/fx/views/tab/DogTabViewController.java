@@ -1,7 +1,10 @@
 package io.igx.fx.views.tab;
 
+import com.gluonhq.ignite.micronaut.OnFXThread;
 import io.igx.fx.model.DogMessage;
 import io.igx.fx.views.main.DogsHttpClient;
+import io.micronaut.context.ApplicationContext;
+import io.micronaut.context.annotation.Prototype;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import javafx.application.Platform;
@@ -21,36 +24,32 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-@Singleton
-//@Prototype
+@Prototype
 public class DogTabViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
 
     @FXML
-    StackPane imageFrame;
-
-    @FXML
-    Label imageLabel;
+    StackPane stackPaneImageFrame;
 
 
     @Inject
     private DogsHttpClient dogsHttpClient;
 
-    private MainViewSubscriber mainViewSubscriber = null;
+
+
 
     public void call(ActionEvent event) {
 
-        if (mainViewSubscriber == null) {
-            Publisher<DogMessage> dogHttpResponse = dogsHttpClient.getRandomDog();
-            mainViewSubscriber = new MainViewSubscriber<DogMessage>();
-            dogHttpResponse.subscribe(mainViewSubscriber);
-        }
+        Publisher<DogMessage> dogHttpResponse = dogsHttpClient.getRandomDog();
+        MainViewSubscriber mainViewSubscriber = new MainViewSubscriber<DogMessage>();
+        dogHttpResponse.subscribe(mainViewSubscriber);
     }
 
-    private void updateImageView(String href) {
-        if (this.imageFrame != null) {
+    @OnFXThread
+    protected void updateImageView(String href) {
+        if (stackPaneImageFrame != null) {
             Image image = new Image(href);
             double nativeWidth = image.getWidth();
             double nativeHeight = image.getHeight();
@@ -66,8 +65,8 @@ public class DogTabViewController implements Initializable {
             }
             imageView.setPreserveRatio(true);
             imageView.setSmooth(true);
-            imageFrame.getChildren().clear();
-            imageFrame.getChildren().add(imageView);
+            stackPaneImageFrame.getChildren().clear();
+            stackPaneImageFrame.getChildren().add(imageView);
         }
     }
 
@@ -91,7 +90,7 @@ public class DogTabViewController implements Initializable {
         protected void hookOnNext(T value) {
             String href = ((DogMessage) value).getMessage();
             System.out.println("HREF of Rest call: " + href);
-            Platform.runLater(() -> updateImageView(href));
+            updateImageView(href);
         }
     }
 }
