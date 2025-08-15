@@ -28,5 +28,4 @@ public class ApplicationEntryPoint {
         stage.show();
     }
 
-
 }

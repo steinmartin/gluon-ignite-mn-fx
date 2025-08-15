@@ -18,37 +18,35 @@ import reactor.core.publisher.SignalType;
 @Singleton
 public class MainViewController {
 
-    @FXML
-    StackPane imageFrame;
 
     @Inject
     private DogsHttpClient dogsHttpClient;
 
-    public void call(ActionEvent event) {
-        Publisher<DogResponse> dogHttpResponse = dogsHttpClient.getRandomDog();
-        dogHttpResponse.subscribe(new MainViewSubscriber<DogResponse>());
-    }
+//    public void call(ActionEvent event) {
+//        Publisher<DogResponse> dogHttpResponse = dogsHttpClient.getRandomDog();
+//        dogHttpResponse.subscribe(new MainViewSubscriber<DogResponse>());
+//    }
 
     private void updateImageView(String href) {
-        if (this.imageFrame != null) {
-            Image image = new Image(href);
-            double nativeWidth = image.getWidth();
-            double nativeHeight = image.getHeight();
-            ImageView imageView = new ImageView(image);
-            imageView.setPreserveRatio(true);
-            imageView.maxWidth(500);
-            imageView.maxHeight(375);
-            if (nativeHeight > 375) {
-                imageView.setFitHeight(375);
-            }
-            if (nativeWidth > 500) {
-                imageView.setFitWidth(500);
-            }
-            imageView.setPreserveRatio(true);
-            imageView.setSmooth(true);
-            imageFrame.getChildren().clear();
-            imageFrame.getChildren().add(imageView);
-        }
+//        if (this.imageFrame != null) {
+//            Image image = new Image(href);
+//            double nativeWidth = image.getWidth();
+//            double nativeHeight = image.getHeight();
+//            ImageView imageView = new ImageView(image);
+//            imageView.setPreserveRatio(true);
+//            imageView.maxWidth(500);
+//            imageView.maxHeight(375);
+//            if (nativeHeight > 375) {
+//                imageView.setFitHeight(375);
+//            }
+//            if (nativeWidth > 500) {
+//                imageView.setFitWidth(500);
+//            }
+//            imageView.setPreserveRatio(true);
+//            imageView.setSmooth(true);
+//            imageFrame.getChildren().clear();
+//            imageFrame.getChildren().add(imageView);
+//        }
     }
 
     private class MainViewSubscriber<T> extends BaseSubscriber<T> {
