@@ -54,12 +54,15 @@ public class FXMLRootProvider {
         String fxml = withExt(viewPath, "fxml");
         T node;
 
+        System.out.println("Attempting to load " + fxml + " for view class: " + viewPath);
         try {
-            LOG.info("Attempting to load " + fxml);
-            node = loaderFactory.getLoader().load(viewClass.getResourceAsStream(fxml));
-        } catch (IOException e) {
+
+            node = loaderFactory.getLoader().load(viewClass.getResource(fxml));
+        } catch (Exception e) {
+            System.out.println("IOException: " + e);
             throw new RuntimeException("Error loading resource " + fxml, e);
         }
+        System.out.println("Node: " + node);
 
         // Make sure that CSS is added to a scene that node is going to be added to
         node.sceneProperty().addListener((o, oldScene, newScene) -> Optional.ofNullable(newScene)
@@ -74,6 +77,8 @@ public class FXMLRootProvider {
     }
 
     private String getViewPath(Class<?> cls) {
+
+
         return cls.getName().replace('.', '/');
     }
 

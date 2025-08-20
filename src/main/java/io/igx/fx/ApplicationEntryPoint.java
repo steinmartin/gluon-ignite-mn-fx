@@ -13,8 +13,14 @@ import jakarta.inject.Singleton;
 @Singleton
 public class ApplicationEntryPoint {
 
+
+    private final MainView mainView;
+
     @Inject
-    private MainView mainView;
+    public ApplicationEntryPoint(MainView mainView)  {
+        this.mainView = mainView;
+    }
+
 
     @EventListener
     void applicationStarted(FXApplication.StartEvent event) {

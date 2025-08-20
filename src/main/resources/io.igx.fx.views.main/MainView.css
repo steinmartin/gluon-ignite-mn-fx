@@ -1,0 +1,13 @@
+#fetchBtn {
+    -fx-background-color: #3b79cf;
+    -fx-background-radius: 30;
+}
+#imageFrame {
+    -fx-background-color: #000000;
+    -fx-border-color: #b07c4a;
+    -fx-border-style: solid;
+    -fx-border-width: 5;
+}
+#rootPane {
+    -fx-background-image: url("/prism.png");
+}

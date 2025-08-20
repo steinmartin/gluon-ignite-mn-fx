@@ -61,7 +61,7 @@ java {
 }
 
 javafx {
-    version =  '24'
+    version =  '17'
     platform = 'linux'
     modules = ['javafx.controls', 'javafx.fxml']
 }

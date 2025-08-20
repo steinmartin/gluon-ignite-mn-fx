@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
-<!--<?import javafx.scene.text.Font?>-->
-<AnchorPane id="rootPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17"
+
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane id="rootPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.igx.fx.views.main.MainViewController">
 <!--&lt;!&ndash;    <StackPane fx:id="imageFrame" layoutX="150.0" layoutY="32.0" prefHeight="375.0" prefWidth="500.0"/>&ndash;&gt;-->
 <!--    <Button fx:id="fetchBtn" layoutX="300.0" layoutY="514.0" mnemonicParsing="false" onAction="#call" prefHeight="27.0"-->
@@ -12,4 +12,4 @@
 <!--            <Font name="Courier New Bold" size="24.0"/>-->
 <!--        </font>-->
 <!--    </Button>-->
-</AnchorPane>
+</BorderPane>
