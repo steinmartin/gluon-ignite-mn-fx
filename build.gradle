@@ -1,7 +1,8 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
-    id 'io.micronaut.application' version '4.5.3'
-    id 'io.micronaut.aot' version '4.5.2'
+//    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id("com.gradleup.shadow") version "9.6.1"
+    id 'io.micronaut.application' version '5.0.2'
+    id 'io.micronaut.aot' version '5.0.2'
     id 'org.openjfx.javafxplugin' version '0.0.14'
 }
 
@@ -39,14 +40,14 @@ dependencies {
 
     implementation 'io.micronaut:micronaut-http-client-jdk'
 //    implementation 'io.micronaut:micronaut-http-client'
-    runtimeOnly 'io.micronaut:micronaut-jackson-databind:4.7.6'
-    compileOnly 'io.micronaut.reactor:micronaut-reactor:3.6.0'
+    runtimeOnly 'io.micronaut:micronaut-jackson-databind:5.1.11'
+    compileOnly 'io.micronaut.reactor:micronaut-reactor:4.1.0'
 
     //implementation 'com.gluonhq:ignite-micronaut:1.2.2'
-    compileOnly 'jakarta.validation:jakarta.validation-api:3.1.0'
+    compileOnly 'jakarta.validation:jakarta.validation-api:3.1.1'
     runtimeOnly 'jakarta.inject:jakarta.inject-api:2.0.1'
 
-    compileOnly("org.graalvm.nativeimage:svm")
+    //compileOnly("org.graalvm.nativeimage:svm")
 
     testImplementation 'io.micronaut:micronaut-http-client-jdk'
     //testImplementation 'io.micronaut:micronaut-http-client'
@@ -56,13 +57,15 @@ application {
     mainClass.set("com.gluonhq.ignite.micronaut.FXApplication")
 }
 java {
-    sourceCompatibility = JavaVersion.toVersion("21")
-    targetCompatibility = JavaVersion.toVersion("21")
+    sourceCompatibility = JavaVersion.toVersion("25")
+    targetCompatibility = JavaVersion.toVersion("25")
 }
 
 javafx {
 //    version = "17.0.13"
-    version = "21.0.7"
+//    version = "21.0.7"
+//    version = "25.0.4"
+    version = "26.0.2"
     platform = 'linux'
     modules = ['javafx.controls', 'javafx.base', 'javafx.graphics', 'javafx.fxml']
 }
