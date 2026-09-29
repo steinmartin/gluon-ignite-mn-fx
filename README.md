@@ -4,7 +4,7 @@ A sample project using [Micronaut DI](https://docs.micronaut.io/latest/guide/#in
 
 
 ### Prerequisites
-Running with e.g. Gradle 9.7.0 and JDK > 26.0.2, e.g. 26.0.2-zulu and JavaFX 26.0.2.
+Running with e.g. Gradle 9.8.0 and JDK > 26.0.2, e.g. 26.0.2-zulu and JavaFX 26.0.2.
 
 
 ### Running
