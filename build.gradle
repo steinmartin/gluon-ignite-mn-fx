@@ -40,8 +40,8 @@ dependencies {
 
     implementation 'io.micronaut:micronaut-http-client-jdk'
 //    implementation 'io.micronaut:micronaut-http-client'
-    runtimeOnly 'io.micronaut:micronaut-jackson-databind:5.1.11'
-    compileOnly 'io.micronaut.reactor:micronaut-reactor:4.1.0'
+    runtimeOnly 'io.micronaut:micronaut-jackson-databind'
+    compileOnly 'io.micronaut.reactor:micronaut-reactor:4.3.0'
 
     //implementation 'com.gluonhq:ignite-micronaut:1.2.2'
     compileOnly 'jakarta.validation:jakarta.validation-api:3.1.1'
@@ -55,6 +55,7 @@ dependencies {
 
 application {
     mainClass.set("com.gluonhq.ignite.micronaut.FXApplication")
+    applicationDefaultJvmArgs = ["--enable-native-access=javafx.graphics"]
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("25")
